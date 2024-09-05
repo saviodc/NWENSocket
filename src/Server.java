@@ -22,7 +22,6 @@ public class Server {
 	        }
 	    }
 
-	    // Method to read a response from the server
 	    public String receiveMessage() throws IOException {
 	        if (in != null) {
 	            return in.readLine();
@@ -56,12 +55,11 @@ public class Server {
 		System.out.println("Client found");
 		out = new PrintWriter(client.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        System.out.println(receiveMessage());
-        sendMessage(answers[((int)Math.random()*answers.length)]);
+        //System.out.println(receiveMessage());
+        sendMessage(answers[(int)(Math.round(Math.random()*answers.length))]);
         client.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error with client I/O");
 		}
 		
 	}

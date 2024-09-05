@@ -67,7 +67,8 @@ public class Server {
 	}
 	
 	public static void main(String[] args) {
-		Server s = new Server(3000);
+		assert args.length == 1;
+		Server s = new Server(Integer.parseInt((args[0])));
 		while(true) {
 			s.find();
 		}

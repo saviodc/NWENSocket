@@ -15,7 +15,9 @@ public class Client {
 			 out = new PrintWriter(socket.getOutputStream(), true);
 	         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		}catch(Exception e) {
-			
+			System.out.println("cehck");
+
+			throw new Error(e);
 		}
 		
 	}
@@ -45,12 +47,12 @@ public class Client {
 	
     
     public static void main(String[] args) {
-    	assert args.length == 3:"Invalid amount of args passed";
+    	//assert args.length == 3:"Invalid amount of args passed";
+	//System.out.println(args[0]+" "+args[1]+" "+args[2]);
     	String source = args[0];
     	int port = Integer.parseInt(args[1]);
-    	Client c = new Client(source,port);
-    	
-    	String request = args[0];
+    	Client c = new Client(source,port);    	
+    	String request = args[2];
     
     	c.sendMessage(request);
     	

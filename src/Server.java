@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -33,17 +34,9 @@ public class Server {
 			server = new ServerSocket(port);
 			System.out.println("Established @ "+ port);
 			
-				client = server.accept();
-				System.out.println("Client found");
-				out = new PrintWriter(client.getOutputStream(), true);
-		        in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		        receiveMessage();
-		        sendMessage(answers[((int)Math.random()*answers.length)]);
-		        
-		        
 			
 		} catch (IOException e) {
-			
+			throw new Error(e);
 		}
 		
 	}
@@ -53,10 +46,9 @@ public class Server {
 			client = server.accept();
 		
 		System.out.println("Client found");
-		out = new PrintWriter(client.getOutputStream(), true);
         in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        //System.out.println(receiveMessage());
-        sendMessage(answers[(int)(Math.round(Math.random()*answers.length))]);
+        out = new PrintWriter(client.getOutputStream(), true);
+        sendMessage(answers[(int)(Math.round(Math.random()*(answers.length-1)))]+ " (" + InetAddress.getLocalHost().getHostAddress()+")");
         client.close();
 		} catch (IOException e) {
 			System.out.println("Error with client I/O");

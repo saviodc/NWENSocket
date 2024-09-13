@@ -1,13 +1,16 @@
 import java.io.*;
 import java.net.*;
 
-public class Client {
+/**
+ * Same credits shown in Magic8BallServer
+ */
+public class Magic8BallClient {
 	Socket socket;
 	int port;
 	BufferedReader in;
 	PrintWriter out;
 
-	public Client(String address, int port) {
+	public Magic8BallClient(String address, int port) {
 		this.port = port;
 		establishConnection(address);
 	}
@@ -53,7 +56,7 @@ public class Client {
 		assert args.length == 3 : "Invalid amount of args passed";
 		String source = args[0];
 		int port = Integer.parseInt(args[1]);
-		Client c = new Client(source, port);
+		Magic8BallClient c = new Magic8BallClient(source, port);
 		String request = args[2];
 
 		c.sendMessage(request);

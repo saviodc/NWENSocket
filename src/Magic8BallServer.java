@@ -6,7 +6,17 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+/**
+ * Used help from Java22 javadoc linked below
+ * Socket - https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/net/Socket.html 
+ * ServerSocket - https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/net/ServerSocket.html
+ * 
+ * Help from article below showing flow of program
+ * https://www.javatpoint.com/socket-programming
+ * 
+ * Along with that used code pattern and some methods from code in Project 1 for sending and receiving.
+ */
+public class Magic8BallServer {
 	static String[] answers = { "Yes definitely", "No definitely", "Not sure, come again", "Why not" };
 	ServerSocket server;
 	Socket client;
@@ -14,7 +24,7 @@ public class Server {
 	BufferedReader in;
 	PrintWriter out;
 
-	public Server(int port) {
+	public Magic8BallServer(int port) {
 		this.port = port;
 		initSocket();
 	}
@@ -44,7 +54,7 @@ public class Server {
 	public void find() {
 		try {
 			client = server.accept();
-			System.out.println("Client found");
+			System.out.println("Magic8BallClient found");
 			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			out = new PrintWriter(client.getOutputStream(), true);
 			sendMessage(answers[(int) (Math.round(Math.random() * (answers.length - 1)))] + " ("
@@ -57,8 +67,8 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-		assert args.length == 1;
-		Server s = new Server(Integer.parseInt((args[0])));
+		assert args.length == 1:"Port not provided";
+		Magic8BallServer s = new Magic8BallServer(Integer.parseInt((args[0])));
 		while (true) {
 			s.find();
 		}
